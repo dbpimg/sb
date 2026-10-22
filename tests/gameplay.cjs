@@ -6,13 +6,13 @@ const script=html.match(/<script>([\s\S]*?)<\/script>/)?.[1];
 assert.ok(script,'standalone game script');
 const nodes=new Map();
 function node(id=''){
-  const n={id,children:[],className:'',textContent:'',disabled:false,style:{},classList:{add(){}},
+  const n={id,children:[],className:'',textContent:'',disabled:false,style:{setProperty(){}},classList:{add(){}},
     replaceWith(other){nodes.set(id,other);other.id=id;},
     replaceChildren(...kids){this.children=kids;},append(...kids){this.children.push(...kids);},
     setAttribute(){},addEventListener(){},onclick:null};
   if(id)nodes.set(id,n);return n;
 }
-for(const id of ['hand','opponent','stock','discard','drop','knock','continue','next','restart','score','message','dw','count','end','title','detail'])node(id);
+for(const id of ['hand','opponent','stock','discard','drop','knock','continue','next','restart','score','message','dw','count','end','title','detail','hint'])node(id);
 const memory=new Map();
 const sandbox={document:{getElementById:id=>nodes.get(id),createElement:()=>node()},localStorage:{
  getItem:k=>memory.get(k)||null,setItem:(k,v)=>memory.set(k,v)},setTimeout:()=>1,clearTimeout:()=>{},
