@@ -27,7 +27,7 @@ assert.equal(meld([c(0,7),c(1,7),c(2,7)]),true,'3 of a kind');
 assert.equal(meld([c(0,7),c(1,7),c(2,7),c(3,7)]),true,'4 of a kind');
 assert.equal(meld([c(0,7),c(0,7),c(1,7)]),false,'duplicate ranks invalid');
 assert.equal(dead([c(0,1),c(0,2),c(0,3),c(1,13)]),10,'ace run + king deadwood');
-assert.equal(dead([c(0,7),c(1,7),c(2,7),c(0,8),c(0,9),c(0,10)]),0,'overlapping melds correctly partitioned');
+assert.equal(dead([c(3,7),c(1,7),c(2,7),c(0,8),c(0,9),c(0,10)]),0,'overlapping melds correctly partitioned');
 assert.equal(dead([c(0,1),c(1,1),c(2,1),c(3,13)]),10,'ace set');
 const hand=[c(0,1),c(0,2),c(0,3),c(1,8),c(1,9),c(2,4),c(3,13),c(2,12)];
 assert.equal(hand.length,8);
