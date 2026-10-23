@@ -1,0 +1,24 @@
+name: YouTube Playables submission package
+on:
+  push:
+    branches: [main, 'release/**']
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/smoke.cjs && node tests/gameplay.cjs && node tests/turn-flow.cjs && node tests/youtube-sdk.cjs
+      - run: python3 scripts/package_youtube.py
+      - run: python3 -m zipfile -t dist/quick-rummy-youtube.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: quick-rummy-youtube-package
+          path: dist/quick-rummy-youtube.zip
+          if-no-files-found: error
