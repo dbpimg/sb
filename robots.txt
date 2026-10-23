@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dbpimg.github.io/sb/sitemap.xml
