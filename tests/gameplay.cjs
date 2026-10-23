@@ -12,7 +12,7 @@ function node(id=''){
     setAttribute(){},addEventListener(){},onclick:null};
   if(id)nodes.set(id,n);return n;
 }
-for(const id of ['hand','opponent','stock','discard','drop','knock','continue','next','restart','score','message','dw','count','end','title','detail','hint'])node(id);
+for(const id of ['hand','opponent','stock','discard','drop','knock','continue','next','restart','score','message','dw','count','end','title','detail','hint','sort-suit','sort-rank','sort-meld','sound','table-melds'])node(id);
 const memory=new Map();
 const sandbox={document:{getElementById:id=>nodes.get(id),createElement:()=>node()},localStorage:{
  getItem:k=>memory.get(k)||null,setItem:(k,v)=>memory.set(k,v)},setTimeout:()=>1,clearTimeout:()=>{},
