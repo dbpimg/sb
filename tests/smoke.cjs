@@ -1,6 +1,6 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 const html=fs.readFileSync('index.html','utf8');
-for(const id of ['hand','opponent','stock','discard','drop','knock','continue','next','restart','score','message'])assert.match(html,new RegExp('id="'+id+'"'));
+for(const id of ['hand','opponent','stock','discard','drop','knock','sort-suit','sort-rank','sort-meld','sound','table-melds','next','restart','score','message'])assert.match(html,new RegExp('id="'+id+'"'));
 const scripts=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)];
 assert.equal(scripts.length,1,'expected standalone JS');
 new vm.Script(scripts[0][1],{filename:'rummy-inline.js'});
