@@ -1,0 +1,18 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const html=fs.readFileSync('youtube/index.html','utf8');
+assert.match(html,/<script src="https:\/\/www.youtube.com\/game_api\/v1"><\/script>/);
+const sdkIndex=html.indexOf('https://www.youtube.com/game_api/v1');
+const gameIndex=html.indexOf('<script>(()=>');
+assert.ok(sdkIndex>=0&&sdkIndex<gameIndex,'SDK must load first');
+const gameScript=html.match(/<script>\(\(\)=>\{([\s\S]+?)<\/script>/);
+assert.ok(gameScript,'inline YouTube game code');
+new vm.Script('(()=>{'+gameScript[1],{filename:'youtube-entry.js'});
+assert.match(html,/ytgame\.game\.firstFrameReady\(\)/);
+assert.match(html,/ytgame\.game\.gameReady\(\)/);
+assert.match(html,/await ytgame\.game\.loadData\(\)/);
+assert.match(html,/ytgame\.game\.saveData\(serialized\)/);
+assert.match(html,/ytgame\.system\.onPause/);
+assert.match(html,/ytgame\.system\.onResume/);
+assert.match(html,/ytgame\.system\.onAudioEnabledChange/);
+assert.ok(!html.includes('http://'),'all assets should be HTTPS');
+console.log('YouTube SDK entrypoint checks passed');
