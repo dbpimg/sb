@@ -5,7 +5,7 @@ const nodes=new Map(),pending=new Map();let timer=0;
 function node(id=''){const n={id,children:[],style:{setProperty(){}},classList:{add(){}},disabled:false,
 replaceWith(v){v.id=id;nodes.set(id,v)},replaceChildren(...a){this.children=a},setAttribute(k,v){this[k]=v},onclick:null};
 if(id)nodes.set(id,n);return n}
-for(const id of ['hand','opponent','stock','discard','drop','knock','next','restart','score','message','dw','count','end','title','detail','hint','sort-suit','sort-rank','sort-meld','sound','table-melds'])node(id);
+for(const id of ['hand','opponent','stock','discard','drop','knock','next','restart','score','message','dw','count','end','title','detail','hint','sort-suit','sort-rank','sort-meld','sound','table-melds','share-game','share-status'])node(id);
 const store=new Map(),sandbox={document:{getElementById:id=>nodes.get(id),createElement:()=>node()},localStorage:{getItem:k=>store.get(k)||null,setItem:(k,v)=>store.set(k,v)},
 setTimeout(fn,delay){const id=++timer;pending.set(id,{fn,delay});return id},clearTimeout(id){pending.delete(id)},Math,console};
 vm.createContext(sandbox);
